@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    {% set page_name = 'Main Page' %}
+    <h1>Welcome to {{ page_name }}</h1>
+
+    {% if status == true %}
+        <h2>Hello {{ name | default('woNdeRfuL', true) | upper() }}!</h2>
+    {% else %}
+        <h2>You need to log in!</h2>
+        <h3>Check out our new <a href="/catalog">catalog</a>.</h3>
+    {% endif %}
+{% endblock %}

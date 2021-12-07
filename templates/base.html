@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}General{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+<body>
+{% include('menu.html') %}
+
+{% block body %}
+<h2>Message from Base</h2>
+{% endblock %}
+
+{% block footer %}
+<h3>The Base footer</h3>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block body %}
+    {% set page_name = 'About Page' %}
+    <h1>Welcome to {{ page_name }}</h1>
+
+
+
+    <h3>ABOUT ME...</h3>
+    <h2>University: {{ uni }}</h2>
+
+    <h2>Profile Details:</h2>
+    <ul>
+        {% for key, value in profile.items() %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Degrees:</h2>
+    <ol>
+        {% for value in degrees %}
+            <li>{{ value }}</li>
+        {% endfor %}
+    </ol>
+
+    <h2>Hobbies:</h2>
+    <ol>
+        {% for value in hobbies %}
+            <li>{{ value }}</li>
+        {% endfor %}
+    </ol>
+
+{% endblock %}
