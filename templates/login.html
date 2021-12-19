@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block body %}
+    {% set page_name = 'About Page' %}
+    <h1>Login Page</h1>
+
+    {% if session.username %}
+        <h2>Welcome back, {{ session.username }}!</h2>
+    {% else %}
+        <h2>Login form:</h2>
+        <br>
+        <form method="POST" action="/login">
+            Nickname: <input name="nickname" type="text">
+            <br>
+            <br>
+            Password: <input name="password" type="password">
+            <br>
+            <br>
+            <input type="submit">
+        </form>
+    {% endif %}
+
+{% endblock %}

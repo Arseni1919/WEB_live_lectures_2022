@@ -8,9 +8,8 @@
     {% set page_name = 'About Page' %}
     <h1>Welcome to {{ page_name }}</h1>
 
-
-
-    <h3>ABOUT ME...</h3>
+    {% if session.username %}
+        <h3>ABOUT ME...</h3>
     <h2>University: {{ uni }}</h2>
 
     <h2>Profile Details:</h2>
@@ -33,5 +32,10 @@
             <li>{{ value }}</li>
         {% endfor %}
     </ol>
+    {% else %}
+        <h2>You need to log in first!</h2>
+    {% endif %}
+
+
 
 {% endblock %}

@@ -8,7 +8,24 @@
     {% set page_name = 'Catalog Page' %}
     <h1>Welcome to {{ page_name }}</h1>
 
-    <h2 class="{% if color == 'green' %}green{% else %}yellow{% endif %}">Catalog List:</h2>
+    <h2 class="{% if color == 'green' %}green{% else %}yellow{% endif %}">Want to find:</h2>
+
+    <form method="GET" action="/catalog">
+        Type: <input name="product_type" type="text">
+        <br>
+        <br>
+        Size: <input name="size" type="text">
+        <br>
+        <br>
+        <input type="submit">
+    </form>
+
+    {% if p_type %}
+        <h2>Product from search:</h2>
+        Product: {{ p_type }}
+        <br>
+        Size: {{ p_size }}
+    {% endif %}
 
     {{ super() }}
 {% endblock %}
