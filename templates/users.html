@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block body %}
+    <h1>Users Page</h1>
+    <h3>Insert new user:</h3>
+    <form action="/insert_user" method="post">
+        <input type="text" name="name" placeholder="Name">
+        <input type="email" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="submit" value="Insert">
+    </form>
+    <h3>Users List:</h3>
+    <ul>
+        {% for user in users %}
+            <li>
+                <form action="/delete_user" method="post" style="display:inline">
+                    <input type="hidden" name="id" value="{{ user.id }}">
+                    <input type="submit" value="Delete">
+                </form>{{ user.name }}, Email: {{ user.email }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% extends 'base.html' %}#}
+{##}
+{#{% block title %}#}
+{#    Users#}
+{#{% endblock %}#}
+{##}
+{#{% block body %}#}
+{#    <h1>Welcome to Users Page</h1>#}
+{#    <a href="/select_users">Show users</a> | <a href="/hide_users">Hide users</a>#}
+{#    <h3>Add User:</h3>#}
+{#    <form action="/insert_user" method="post">#}
+{#        Name: <input type="text" name="name">#}
+{#        Email: <input type="email" name="email">#}
+{#        Password: <input type="password" name="password">#}
+{#        <input type="submit" name="Submit">#}
+{#    </form>#}
+{#    <hr>#}
+{#    {% if session.users %}#}
+{#        <ul>#}
+{#            {% for user in session.users %}#}
+{#                <li>#}
+{#                    <form style="display:inline" action="/delete_user" method="post">#}
+{#                        <input type="hidden" name="id" value="{{ user[0] }}">#}
+{#                        <input type="submit" value="Delete">#}
+{#                    </form> {{ user[1] }}, Email: {{ user[2] }}</li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#        {{ session.users }}#}
+{#    {% endif %}#}
+{#{% endblock %}#}

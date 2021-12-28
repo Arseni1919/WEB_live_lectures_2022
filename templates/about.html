@@ -15,7 +15,7 @@
     <h2>Profile Details:</h2>
     <ul>
         {% for key, value in profile.items() %}
-            <li>{{ key }}: {{ value }}</li>
+            <li>{{ key }}: {{ value | upper() }}</li>
         {% endfor %}
     </ul>
 

@@ -11,10 +11,15 @@
     <h2 class="{% if color == 'green' %}green{% else %}yellow{% endif %}">Want to find:</h2>
 
     <form method="GET" action="/catalog">
-        Type: <input name="product_type" type="text">
-        <br>
-        <br>
-        Size: <input name="size" type="text">
+        <label for="product_type">Product:</label>
+        <input name="product_type" type="text" placeholder="Item" id="product_type">
+        <label for="size">Size:</label>
+        <select name="size" id="size">
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+        </select>
         <br>
         <br>
         <input type="submit">
