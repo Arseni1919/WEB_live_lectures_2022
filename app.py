@@ -1,4 +1,8 @@
 import asyncio
+import random
+import aiohttp
+
+import requests
 from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request, session
@@ -151,6 +155,67 @@ def delete_user_func():
 
 # ------------------------------------------------- #
 # ------------------------------------------------- #
+
+
+@app.route('/req_frontend')
+def req_frontend_func():
+    return render_template('req_frontend.html')
+
+
+# ------------------------------------------------- #
+# ------------------------------------------------- #
+
+async def fetch_url(client_session, url):
+    """Fetch the specified URL using the aiohttp session specified."""
+    # response = await session.get(url)
+    async with client_session.get(url, ssl=False) as resp:
+        response = await resp.json()
+        return response
+
+
+async def get_all_urls(num):
+    async with aiohttp.ClientSession(trust_env=True) as client_session:
+        tasks = []
+        for i in range(num):
+            random_n = random.randint(1, 100)
+            url = f'https://pokeapi.co/api/v2/pokemon/{random_n}'
+            task = asyncio.create_task(fetch_url(client_session, url))
+            tasks.append(task)
+        data = await asyncio.gather(*tasks)
+    return data
+
+
+def get_pockemons_async(num=3):
+    pockemons = asyncio.run(get_all_urls(num))
+    return pockemons
+
+
+def get_pockemons(num=3):
+    pockemons = []
+    for i in range(num):
+        random_n = random.randint(1, 100)
+        res = requests.get(url=f'https://pokeapi.co/api/v2/pokemon/{random_n}')
+        res = res.json()
+        pockemons.append(res)
+    return pockemons
+
+
+@app.route('/req_backend')
+def req_backend_func():
+    num = 3
+    if "number" in request.args:
+        num = int(request.args['number'])
+    pockemons = get_pockemons(num)
+    return render_template('req_backend.html', pockemons=pockemons)
+
+@app.route('/req_backend_async')
+def req_backend_async_func():
+    num = 3
+    if "number" in request.args:
+        num = int(request.args['number'])
+    pockemons = get_pockemons_async(num)
+    return render_template('req_backend.html', pockemons=pockemons)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
