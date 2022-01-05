@@ -6,6 +6,7 @@ import requests
 from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request, session
+from flask import jsonify
 from interact_with_DB import interact_db
 
 app = Flask(__name__)
@@ -85,6 +86,18 @@ def users_func():
 # ------------------------------------------------- #
 # ------------------------------------------------- #
 
+
+@app.route('/get_users', defaults={'user_id': 32})
+@app.route('/get_users/<user_id>', methods=['GET', 'POST'])
+def get_user(user_id):
+    query = "select * from users where id=%s" % user_id
+    query_result = interact_db(query=query, query_type='fetch')
+    if len(query_result) == 0:
+        return_dict = {'status': 'failed', 'message': 'user not found'}
+    else:
+        return_dict = {'status': 'success', 'name': query_result[0].name, 'email': query_result[0].email}
+
+    return jsonify(return_dict)
 
 # @app.route('/hide_users')
 # def hide_users_func():
@@ -207,6 +220,7 @@ def req_backend_func():
         num = int(request.args['number'])
     pockemons = get_pockemons(num)
     return render_template('req_backend.html', pockemons=pockemons)
+
 
 @app.route('/req_backend_async')
 def req_backend_async_func():
